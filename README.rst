@@ -1,3 +1,30 @@
+## Analytics & Tag Management
+
+This project integrates Google Tag Manager to enable analytics and marketing tag management.
+
+**GTM Container ID:** `gtm-kqqwvx2-zgi2z`
+
+### Integration Instructions
+
+1. **Where to add:**
+   - Insert the GTM snippet in your HTTP API’s frontend entry point (e.g., in the HTML template, or the main frontend file if your API serves web content).
+   - For backend-only APIs, GTM is typically not required unless you serve API documentation or admin dashboards with a web interface.
+
+2. **Security Note:**
+   - Never expose API secrets, user data, or sensitive backend logic through GTM tags.
+   - Only use GTM for analytics and marketing tags that do not compromise security.
+   - Regularly audit your GTM account to ensure only approved tags are published.
+
+3. **GTM Management:**
+   - Manage and update tags in your [Google Tag Manager Account](https://tagmanager.google.com/).
+   - Most tag changes will apply automatically without code redeploys.
+
+---
+
+_If you require fixes for duplicate code detection, error resolution, payment features, or want to hide vulnerable code, please specify the exact issue so targeted help can be provided._
+
+[Organization Copilot Customization Instructions](https://docs.github.com/en/copilot/customizing-copilot/adding-organization-custom-instructions-for-github-copilot)
+
 # Google Cloud Python - Nodoubtz
 
 Welcome to the **Google Cloud Python - Nodoubtz** repository!  
