@@ -1,3 +1,4 @@
+[![CodeQL Advanced](https://github.com/Tanker187/google-cloud-python-nodoubtz-/actions/workflows/codeql.yml/badge.svg)](https://github.com/Tanker187/google-cloud-python-nodoubtz-/actions/workflows/codeql.yml)
 [![Greetings](https://github.com/Tanker187/google-cloud-python-nodoubtz-/actions/workflows/greetings.yml/badge.svg)](https://github.com/Tanker187/google-cloud-python-nodoubtz-/actions/workflows/greetings.yml)
 ## Analytics & Tag Management
 
