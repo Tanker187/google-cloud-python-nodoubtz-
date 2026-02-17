@@ -1,0 +1,41 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'tag-and-push'
+    script: |
+      #!/bin/sh
+      set -e
+      docker build -t $_IMAGE .
+      docker push "$_IMAGE"
+      docker inspect $_IMAGE --format "$_IMAGE@{{.Id}}" >image_with_digest
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'generate-token'
+    script: |
+      #!/bin/sh
+      set -e
+      gcloud auth print-identity-token --audiences=sigstore > token
+  - name: 'gcr.io/cloud-builders/docker'
+    id: 'sign-image'
+    script: |
+      #!/bin/sh
+      set -e
+      docker run \
+      --network=cloudbuild \
+      --mount source=home-volume,target=/builder/home \
+      --rm \
+      -e SIGSTORE_NO_CACHE=true \
+      -e HOME=/builder/home \
+      gcr.io/projectsigstore/cosign \
+      sign --identity-token=$(cat token) $(cat image_with_digest) -y
+  service_account: '$_SERVICE_ACCOUNT'
+  artifacts:
+    images:
+    - $_IMAGE
+  substitutions:
+    _IMAGE: 'global -docker.pkg.dev/gtm-kqqwvx2-zgi2z/Tanker187/magic-modules/us.gcr.io/gtm-kqqwvx2-zgi2z/app-engine-tmp/app/ttl-2h:e8d16cb3-7859-47a0-a9cd-371f627854d3'
+    _SERVICE_ACCOUNT_ID: '118062373027529706263'
+    _SERVICE_ACCOUNT: projects/${PROJECT_ID}/serviceAccounts/${_SERVICE_ACCOUNT_ID}
+  options:
+    env:
+    - '_IMAGE=$_IMAGE'
+    dynamic_substitutions: true
+    logging: CLOUD_LOGGING_ONLY
